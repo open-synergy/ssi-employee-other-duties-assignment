@@ -6,6 +6,7 @@ git+https://github.com/open-synergy/ssi-mixin@14.0#subdirectory=setup/ssi_transa
 git+https://github.com/open-synergy/ssi-mixin@14.0#subdirectory=setup/ssi_transaction_open_mixin
 git+https://github.com/open-synergy/ssi-mixin@14.0#subdirectory=setup/ssi_transaction_done_mixin
 git+https://github.com/open-synergy/ssi-mixin@14.0#subdirectory=setup/ssi_transaction_date_duration_mixin
+git+https://github.com/open-synergy/ssi-mixin@14.0#subdirectory=setup/ssi_print_mixin
 git+https://github.com/open-synergy/opnsynid-hr@14.0#subdirectory=setup/ssi_hr
 git+https://github.com/open-synergy/opnsynid-hr-employee-directory@14.0#subdirectory=setup/ssi_employee_document_mixin
 git+https://github.com/open-synergy/opnsynid-hr-employee-directory@14.0#subdirectory=setup/ssi_hr_employee
