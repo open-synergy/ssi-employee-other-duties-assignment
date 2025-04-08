@@ -20,6 +20,7 @@
         "ssi_employee_document_mixin",
         "ssi_transaction_date_duration_mixin",
         "ssi_hr_employee",
+        "ssi_m2o_configurator_mixin",
     ],
     "data": [
         "ir_module_category/employee_other_duties_assignment.xml",
