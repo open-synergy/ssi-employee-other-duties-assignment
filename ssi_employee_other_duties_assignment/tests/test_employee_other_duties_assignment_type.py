@@ -2,14 +2,12 @@
 # Copyright 2024 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import tagged
-
 from odoo_yaml_test import YamlTransactionCase
+
+from odoo.tests import tagged
 
 
 @tagged("post_install", "-at_install")
 class TestEmployeeOtherDutiesAssignmentType(YamlTransactionCase):
     def test_employee_other_duties_assignment_type(self):
-        self.run_yaml_scenario(
-            "test_data_employee_other_duties_assignment_type.yaml"
-        )
+        self.run_yaml_scenario("test_data_employee_other_duties_assignment_type.yaml")
