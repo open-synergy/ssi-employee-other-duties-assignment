@@ -1,0 +1,317 @@
+scenarios:
+  - name: "Employee Other Duties Assignment - Full Workflow: draft to done"
+    steps:
+      - step: "Setup - create employee job position"
+        action: "create"
+        model: "hr.job"
+        save_as: "job"
+        values:
+          name: "Test Job EODA"
+
+      - step: "Setup - create employee department"
+        action: "create"
+        model: "hr.department"
+        save_as: "department"
+        values:
+          name: "Test Department EODA"
+
+      - step: "Setup - create employee"
+        action: "create"
+        model: "hr.employee"
+        save_as: "employee"
+        values:
+          name: "Test Employee EODA"
+          job_id: "EVAL: registry['job'].id"
+          department_id: "EVAL: registry['department'].id"
+
+      - step: "Setup - create assignment type"
+        action: "create"
+        model: "employee_other_duties_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "Test Assignment Type EODA"
+          code: "EODATYPE"
+
+      - step: "Setup - create job description"
+        action: "create"
+        model: "job_description"
+        save_as: "job_description"
+        values:
+          name: "Test Job Description EODA"
+          code: "EODAJD"
+
+      - step: "Create assignment in draft"
+        action: "create"
+        model: "employee_other_duties_assignment"
+        save_as: "assignment"
+        as_user: "base.user_admin"
+        values:
+          employee_id: "EVAL: registry['employee'].id"
+          date_start: 2024-01-01
+          date: 2024-01-01
+          type_id: "EVAL: registry['assignment_type'].id"
+          job_description_ids:
+            - - 4
+              - "EVAL: registry['job_description'].id"
+              - 0
+
+      - step: "Assert assignment created in draft"
+        action: "assert"
+        target: "assignment"
+        asserts:
+          state:
+            type: "value"
+            expected: "draft"
+          employee_id:
+            type: "value"
+            operator: "is_truthy"
+          type_id:
+            type: "value"
+            operator: "is_truthy"
+
+      - step: "Confirm assignment"
+        action: "call"
+        target: "assignment"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Invalidate cache after confirm"
+        action: "call"
+        target: "assignment"
+        method: "invalidate_cache"
+
+      - step: "Approve assignment"
+        action: "call"
+        target: "assignment"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
+
+      - step: "Invalidate cache after open"
+        action: "call"
+        target: "assignment"
+        method: "invalidate_cache"
+
+      - step: "Assert name is set after open"
+        action: "assert"
+        target: "assignment"
+        asserts:
+          name:
+            type: "value"
+            operator: "is_truthy"
+
+      - step: "Mark assignment as done"
+        action: "call"
+        target: "assignment"
+        method: "action_done"
+        as_user: "base.user_admin"
+        context:
+          bypass_policy_check: true
+        asserts:
+          state:
+            type: "value"
+            expected: "done"
+
+  - name: "Employee Other Duties Assignment - Reject and Restart"
+    steps:
+      - step: "Setup - create employee"
+        action: "create"
+        model: "hr.employee"
+        save_as: "employee"
+        values:
+          name: "Test Employee EODA Reject"
+
+      - step: "Setup - create assignment type"
+        action: "create"
+        model: "employee_other_duties_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "Test Assignment Type EODA Reject"
+          code: "EODATYPREJ"
+
+      - step: "Setup - create job description"
+        action: "create"
+        model: "job_description"
+        save_as: "job_description"
+        values:
+          name: "Test Job Description EODA Reject"
+          code: "EODAJDREJ"
+
+      - step: "Create assignment"
+        action: "create"
+        model: "employee_other_duties_assignment"
+        save_as: "assignment"
+        as_user: "base.user_admin"
+        values:
+          employee_id: "EVAL: registry['employee'].id"
+          date_start: 2024-02-01
+          date: 2024-02-01
+          type_id: "EVAL: registry['assignment_type'].id"
+          job_description_ids:
+            - - 4
+              - "EVAL: registry['job_description'].id"
+              - 0
+
+      - step: "Confirm assignment"
+        action: "call"
+        target: "assignment"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Invalidate cache after confirm"
+        action: "call"
+        target: "assignment"
+        method: "invalidate_cache"
+
+      - step: "Reject assignment"
+        action: "call"
+        target: "assignment"
+        method: "action_reject_approval"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "reject"
+
+      - step: "Invalidate cache after reject"
+        action: "call"
+        target: "assignment"
+        method: "invalidate_cache"
+
+      - step: "Restart to draft"
+        action: "call"
+        target: "assignment"
+        method: "action_restart"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "draft"
+
+  - name: "Employee Other Duties Assignment - Compute Extra Job Descriptions"
+    steps:
+      - step: "Setup - create employee"
+        action: "create"
+        model: "hr.employee"
+        save_as: "employee"
+        values:
+          name: "Test Employee EODA Compute"
+
+      - step: "Setup - create assignment type"
+        action: "create"
+        model: "employee_other_duties_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "Test Assignment Type EODA Compute"
+          code: "EODATYPCOMP"
+
+      - step: "Setup - create job description"
+        action: "create"
+        model: "job_description"
+        save_as: "job_description"
+        values:
+          name: "Test Job Description EODA Compute"
+          code: "EODAJDCOMP"
+
+      - step: "Create assignment"
+        action: "create"
+        model: "employee_other_duties_assignment"
+        save_as: "assignment"
+        as_user: "base.user_admin"
+        values:
+          employee_id: "EVAL: registry['employee'].id"
+          date_start: 2024-03-01
+          date: 2024-03-01
+          type_id: "EVAL: registry['assignment_type'].id"
+          job_description_ids:
+            - - 4
+              - "EVAL: registry['job_description'].id"
+              - 0
+
+      - step: "Assert extra job descriptions empty while in draft"
+        action: "assert"
+        target: "employee"
+        asserts:
+          extra_job_description_ids:
+            type: "o2m"
+            check: "count"
+            expected_count: 0
+
+      - step: "Confirm assignment"
+        action: "call"
+        target: "assignment"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+
+      - step: "Invalidate cache after confirm"
+        action: "call"
+        target: "assignment"
+        method: "invalidate_cache"
+
+      - step: "Approve to open"
+        action: "call"
+        target: "assignment"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+
+      - step: "Invalidate cache after open"
+        action: "call"
+        target: "assignment"
+        method: "invalidate_cache"
+
+      - step: "Invalidate cache on employee"
+        action: "call"
+        target: "employee"
+        method: "invalidate_cache"
+
+      - step: "Assert extra job descriptions populated when open"
+        action: "assert"
+        target: "employee"
+        asserts:
+          extra_job_description_ids:
+            type: "o2m"
+            check: "count"
+            expected_count: 1
+
+  - name: "Employee Other Duties Assignment Type - CRUD"
+    steps:
+      - step: "Create assignment type"
+        action: "create"
+        model: "employee_other_duties_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "CRUD Test Type"
+          code: "CRUDODAT"
+      - step: "Assert type created"
+        action: "assert"
+        target: "assignment_type"
+        asserts:
+          id:
+            type: "value"
+            operator: "is_truthy"
+          name:
+            type: "value"
+            expected: "CRUD Test Type"
+      - step: "Update type name"
+        action: "write"
+        target: "assignment_type"
+        values:
+          name: "CRUD Updated Type"
+      - step: "Assert name updated"
+        action: "assert"
+        target: "assignment_type"
+        asserts:
+          name:
+            type: "value"
+            expected: "CRUD Updated Type"

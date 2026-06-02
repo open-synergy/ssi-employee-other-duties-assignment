@@ -1,0 +1,65 @@
+scenarios:
+  - name: "Create Employee Other Duties Assignment Type"
+    steps:
+      - step: "Create assignment type"
+        action: "create"
+        model: "employee_other_duties_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "Test Assignment Type"
+          code: "TESTODAT"
+      - step: "Assert type created"
+        action: "assert"
+        target: "assignment_type"
+        asserts:
+          id:
+            type: "value"
+            operator: "is_truthy"
+          name:
+            type: "value"
+            expected: "Test Assignment Type"
+          active:
+            type: "value"
+            expected: true
+
+  - name: "Edit Employee Other Duties Assignment Type Name"
+    steps:
+      - step: "Create assignment type"
+        action: "create"
+        model: "employee_other_duties_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "Original Type"
+          code: "ORIGODAT"
+      - step: "Update name"
+        action: "write"
+        target: "assignment_type"
+        values:
+          name: "Updated Type"
+      - step: "Assert name updated"
+        action: "assert"
+        target: "assignment_type"
+        asserts:
+          name:
+            type: "value"
+            expected: "Updated Type"
+
+  - name: "Delete Employee Other Duties Assignment Type"
+    steps:
+      - step: "Create assignment type"
+        action: "create"
+        model: "employee_other_duties_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "To Delete Type"
+          code: "DELODAT"
+      - step: "Delete assignment type"
+        action: "call"
+        target: "assignment_type"
+        method: "unlink"
+      - step: "Verify deleted"
+        action: "search"
+        model: "employee_other_duties_assignment_type"
+        domain: [["code", "=", "DELODAT"]]
+        save_as: "result"
+        expect_count: 0
