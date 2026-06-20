@@ -18,6 +18,32 @@
                 <field name="date_start" />
                 <field name="date_end" />
                 <field name="type_id" />
+                <field name="employee_id" />
+                <field name="department_id" />
+            </xpath>
+            <xpath expr="//search" position="inside">
+                <group expand="0" string="Group By">
+                    <filter
+                            name="groupby_employee_id"
+                            string="Employee"
+                            context="{'group_by': 'employee_id'}"
+                        />
+                    <filter
+                            name="groupby_department_id"
+                            string="Department"
+                            context="{'group_by': 'department_id'}"
+                        />
+                    <filter
+                            name="groupby_type_id"
+                            string="Type"
+                            context="{'group_by': 'type_id'}"
+                        />
+                    <filter
+                            name="groupby_date"
+                            string="Date"
+                            context="{'group_by': 'date:month'}"
+                        />
+                </group>
             </xpath>
         </data>
     </field>
