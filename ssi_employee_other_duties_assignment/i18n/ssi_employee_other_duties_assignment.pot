@@ -232,6 +232,7 @@ msgstr ""
 
 #. module: ssi_employee_other_duties_assignment
 #: model:ir.model.fields,field_description:ssi_employee_other_duties_assignment.field_employee_other_duties_assignment__date
+#: model_terms:ir.ui.view,arch_db:ssi_employee_other_duties_assignment.employee_other_duties_assignment_view_search
 msgid "Date"
 msgstr ""
 
@@ -247,6 +248,7 @@ msgstr ""
 
 #. module: ssi_employee_other_duties_assignment
 #: model:ir.model.fields,field_description:ssi_employee_other_duties_assignment.field_employee_other_duties_assignment__department_id
+#: model_terms:ir.ui.view,arch_db:ssi_employee_other_duties_assignment.employee_other_duties_assignment_view_search
 msgid "Department"
 msgstr ""
 
@@ -272,6 +274,7 @@ msgstr ""
 
 #. module: ssi_employee_other_duties_assignment
 #: model:ir.model.fields,field_description:ssi_employee_other_duties_assignment.field_employee_other_duties_assignment__employee_id
+#: model_terms:ir.ui.view,arch_db:ssi_employee_other_duties_assignment.employee_other_duties_assignment_view_search
 msgid "Employee"
 msgstr ""
 
@@ -354,6 +357,11 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_employee_other_duties_assignment.field_employee_other_duties_assignment__activity_type_icon
 #: model:ir.model.fields,help:ssi_employee_other_duties_assignment.field_employee_other_duties_assignment_type__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: ssi_employee_other_duties_assignment
+#: model_terms:ir.ui.view,arch_db:ssi_employee_other_duties_assignment.employee_other_duties_assignment_view_search
+msgid "Group By"
 msgstr ""
 
 #. module: ssi_employee_other_duties_assignment
@@ -665,6 +673,7 @@ msgstr ""
 
 #. module: ssi_employee_other_duties_assignment
 #: model:ir.model.fields,field_description:ssi_employee_other_duties_assignment.field_employee_other_duties_assignment__type_id
+#: model_terms:ir.ui.view,arch_db:ssi_employee_other_duties_assignment.employee_other_duties_assignment_view_search
 msgid "Type"
 msgstr ""
 
