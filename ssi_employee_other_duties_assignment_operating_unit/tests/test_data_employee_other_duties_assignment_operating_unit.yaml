@@ -155,7 +155,10 @@ scenarios:
         save: false
         ops:
           - set: {employee_id: "REC: emp_a"}
-          - set: {employee_id: false}
+          # Odoo's Form.__setattr__ requires an empty recordset of the
+          # right model to clear a many2one -- plain `false` fails its own
+          # `isinstance(value, BaseModel)` assertion, it is not a no-op.
+          - set: {employee_id: "EVAL: env['hr.employee']"}
           - assert:
               operating_unit_id:
                 type: "value"
