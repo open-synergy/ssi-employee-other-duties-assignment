@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [ssi_employee_other_duties_assignment](ssi_employee_other_duties_assignment/) | 14.0.1.2.0 |  | Employee Other Duties Assigmnent
+[ssi_employee_other_duties_assignment_operating_unit](ssi_employee_other_duties_assignment_operating_unit/) | 14.0.1.0.0 |  | Employee Other Duties Assigmnent + Operating Unit
 
 [//]: # (end addons)
 
