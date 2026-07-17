@@ -1,0 +1,273 @@
+options:
+  auto_refresh: true
+
+scenarios:
+  - name: "Onchange employee sets operating unit from employee"
+    steps:
+      - step: "Setup - create operating unit A"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_a"
+        values:
+          name: "Test OU A EODA S1"
+          code: "OUAEODAS1"
+          partner_id: "REC: company.partner_id.id"
+
+      - step: "Setup - create job position"
+        action: "create"
+        model: "hr.job"
+        save_as: "job"
+        values:
+          name: "Test Job EODA OU S1"
+
+      - step: "Setup - create department"
+        action: "create"
+        model: "hr.department"
+        save_as: "department"
+        values:
+          name: "Test Department EODA OU S1"
+
+      - step: "Setup - create employee A (Operating Unit A)"
+        action: "create"
+        model: "hr.employee"
+        save_as: "emp_a"
+        values:
+          name: "Test Employee EODA OU A S1"
+          job_id: "REC: job.id"
+          department_id: "REC: department.id"
+          operating_unit_id: "REC: ou_a.id"
+
+      - step: "Set employee A on new assignment form"
+        action: "form"
+        model: "employee_other_duties_assignment"
+        save: false
+        values:
+          employee_id: "REC: emp_a"
+        asserts:
+          operating_unit_id:
+            type: "m2o"
+            expected: "REC: ou_a"
+
+  - name: "Changing employee changes operating unit"
+    steps:
+      - step: "Setup - create operating unit A"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_a"
+        values:
+          name: "Test OU A EODA S2"
+          code: "OUAEODAS2"
+          partner_id: "REC: company.partner_id.id"
+
+      - step: "Setup - create operating unit B"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_b"
+        values:
+          name: "Test OU B EODA S2"
+          code: "OUBEODAS2"
+          partner_id: "REC: company.partner_id.id"
+
+      - step: "Setup - create job position"
+        action: "create"
+        model: "hr.job"
+        save_as: "job"
+        values:
+          name: "Test Job EODA OU S2"
+
+      - step: "Setup - create department"
+        action: "create"
+        model: "hr.department"
+        save_as: "department"
+        values:
+          name: "Test Department EODA OU S2"
+
+      - step: "Setup - create employee A (Operating Unit A)"
+        action: "create"
+        model: "hr.employee"
+        save_as: "emp_a"
+        values:
+          name: "Test Employee EODA OU A S2"
+          job_id: "REC: job.id"
+          department_id: "REC: department.id"
+          operating_unit_id: "REC: ou_a.id"
+
+      - step: "Setup - create employee B (Operating Unit B)"
+        action: "create"
+        model: "hr.employee"
+        save_as: "emp_b"
+        values:
+          name: "Test Employee EODA OU B S2"
+          job_id: "REC: job.id"
+          department_id: "REC: department.id"
+          operating_unit_id: "REC: ou_b.id"
+
+      - step: "Set employee A then employee B"
+        action: "form"
+        model: "employee_other_duties_assignment"
+        save: false
+        ops:
+          - set: {employee_id: "REC: emp_a"}
+          - set: {employee_id: "REC: emp_b"}
+          - assert:
+              operating_unit_id:
+                type: "m2o"
+                expected: "REC: ou_b"
+
+  - name: "Clearing employee clears operating unit"
+    steps:
+      - step: "Setup - create operating unit A"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_a"
+        values:
+          name: "Test OU A EODA S3"
+          code: "OUAEODAS3"
+          partner_id: "REC: company.partner_id.id"
+
+      - step: "Setup - create job position"
+        action: "create"
+        model: "hr.job"
+        save_as: "job"
+        values:
+          name: "Test Job EODA OU S3"
+
+      - step: "Setup - create department"
+        action: "create"
+        model: "hr.department"
+        save_as: "department"
+        values:
+          name: "Test Department EODA OU S3"
+
+      - step: "Setup - create employee A (Operating Unit A)"
+        action: "create"
+        model: "hr.employee"
+        save_as: "emp_a"
+        values:
+          name: "Test Employee EODA OU A S3"
+          job_id: "REC: job.id"
+          department_id: "REC: department.id"
+          operating_unit_id: "REC: ou_a.id"
+
+      - step: "Set employee A then clear the employee"
+        action: "form"
+        model: "employee_other_duties_assignment"
+        save: false
+        ops:
+          - set: {employee_id: "REC: emp_a"}
+          # Odoo's Form.__setattr__ requires an empty recordset of the
+          # right model to clear a many2one -- plain `false` fails its own
+          # `isinstance(value, BaseModel)` assertion, it is not a no-op.
+          - set: {employee_id: "EVAL: env['hr.employee']"}
+          - assert:
+              operating_unit_id:
+                type: "value"
+                operator: "is_falsy"
+
+  - name: "Operating unit persists through the workflow to done"
+    steps:
+      - step: "Setup - create operating unit A"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_a"
+        values:
+          name: "Test OU A EODA S4"
+          code: "OUAEODAS4"
+          partner_id: "REC: company.partner_id.id"
+
+      - step: "Setup - create job position"
+        action: "create"
+        model: "hr.job"
+        save_as: "job"
+        values:
+          name: "Test Job EODA OU S4"
+
+      - step: "Setup - create department"
+        action: "create"
+        model: "hr.department"
+        save_as: "department"
+        values:
+          name: "Test Department EODA OU S4"
+
+      - step: "Setup - create employee A (Operating Unit A)"
+        action: "create"
+        model: "hr.employee"
+        save_as: "emp_a"
+        values:
+          name: "Test Employee EODA OU A S4"
+          job_id: "REC: job.id"
+          department_id: "REC: department.id"
+          operating_unit_id: "REC: ou_a.id"
+
+      - step: "Setup - create assignment type"
+        action: "create"
+        model: "employee_other_duties_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "Test Assignment Type EODA OU S4"
+          code: "EODATYPEOUS4"
+
+      - step: "Setup - create job description"
+        action: "create"
+        model: "job_description"
+        save_as: "job_description"
+        values:
+          name: "Test Job Description EODA OU S4"
+          code: "EODAJDOUS4"
+
+      - step: "Create assignment for employee A with operating unit A"
+        action: "create"
+        model: "employee_other_duties_assignment"
+        save_as: "assignment"
+        as_user: "base.user_admin"
+        values:
+          employee_id: "REC: emp_a.id"
+          date: 2026-01-01
+          date_start: 2026-01-01
+          date_end: 2026-01-31
+          type_id: "REC: assignment_type.id"
+          operating_unit_id: "REC: ou_a.id"
+          job_description_ids:
+            - - 4
+              - "REC: job_description.id"
+              - 0
+
+      - step: "Confirm assignment"
+        action: "call"
+        target: "assignment"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Approve assignment"
+        action: "call"
+        target: "assignment"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
+
+      - step: "Mark assignment as done"
+        action: "call"
+        target: "assignment"
+        method: "action_done"
+        as_user: "base.user_admin"
+        context:
+          bypass_policy_check: true
+        asserts:
+          state:
+            type: "value"
+            expected: "done"
+
+      - step: "Assert operating unit unchanged after done"
+        action: "assert"
+        target: "assignment"
+        asserts:
+          operating_unit_id:
+            type: "m2o"
+            expected: "REC: ou_a"
