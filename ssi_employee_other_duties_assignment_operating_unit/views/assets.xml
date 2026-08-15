@@ -12,7 +12,7 @@
         <script
                 type="text/javascript"
                 src="/ssi_employee_other_duties_assignment_operating_unit/static/tests/tours/employee_other_duties_assignment_tour.js"
-            ></script>
+            />
     </xpath>
 </template>
 </odoo>
