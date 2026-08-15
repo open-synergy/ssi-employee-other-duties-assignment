@@ -12,7 +12,7 @@
 - **Record:** Status is **Cancelled** or **Rejected**.
 - **Config:** An active `policy.template` grants `restart_ok` for that state to the
   actor's group.
-- **Access:** User has *Can Restart* access right.
+- **Access:** User has _Can Restart_ access right.
 
 ## Flow
 

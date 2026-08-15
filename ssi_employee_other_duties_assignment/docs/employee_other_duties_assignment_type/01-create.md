@@ -14,8 +14,8 @@
 1. Open the **Human Resource > Configuration > Other Duties Assignment > Types** menu.
 2. Click the **New** button. **(14.0: "Create")**
 3. Fill in the required fields:
-   - **Name** *(required)*: Enter the type name.
-   - **Code** *(required)*: Enter a unique code for this type, or fill with **/**.
+   - **Name** _(required)_: Enter the type name.
+   - **Code** _(required)_: Enter a unique code for this type, or fill with **/**.
 4. Click **Save**.
 
 ## Post-Condition

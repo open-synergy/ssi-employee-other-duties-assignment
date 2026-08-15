@@ -12,7 +12,7 @@
 - **Record:** Status is **Waiting for Approval**.
 - **Config:** An active `policy.template` grants `reject_ok` to the actor's group.
 - **Access:** User is registered as an approver on the active approval template.
-- **Access:** User has *Can Reject* access right.
+- **Access:** User has _Can Reject_ access right.
 
 ## Flow
 

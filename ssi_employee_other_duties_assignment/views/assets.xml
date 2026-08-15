@@ -12,11 +12,11 @@
         <script
                 type="text/javascript"
                 src="/ssi_employee_other_duties_assignment/static/tests/tours/employee_other_duties_assignment_tour.js"
-            ></script>
+            />
         <script
                 type="text/javascript"
                 src="/ssi_employee_other_duties_assignment/static/tests/tours/employee_other_duties_assignment_type_tour.js"
-            ></script>
+            />
     </xpath>
 </template>
 </odoo>

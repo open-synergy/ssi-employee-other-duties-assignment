@@ -14,7 +14,7 @@
   `draft` to the actor's group.
 - **Config:** An active `approval.template` for this model matches this record.
 - **Config:** An active `sequence.template` exists for this model.
-- **Access:** User has *Can Confirm* access right.
+- **Access:** User has _Can Confirm_ access right.
 
 ## Flow
 
@@ -27,5 +27,4 @@
 ## Post-Condition
 
 - Status changes to **Waiting for Approval**.
-- An approval record is created for the approver group defined by the approval
-  template.
+- An approval record is created for the approver group defined by the approval template.

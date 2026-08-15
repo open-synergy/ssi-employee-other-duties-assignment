@@ -84,6 +84,14 @@ class TestUiEmployeeOtherDutiesAssignment(HttpSavepointCase):
 
         cls.assignment_restart = cls._create_assignment(cls.eoda_employee_restart)
         cls.assignment_restart.with_user(cls.admin).action_confirm()
+        # WAJIB: action_confirm() reads confirm_ok, which caches the whole
+        # mixin.policy compute group -- including reject_ok -- at a point
+        # where the approval record does not exist yet, so reject_ok is
+        # cached False. Without invalidating first, action_reject_approval()
+        # below reads that stale value and fails nondeterministically with
+        # "Document is not allowed to reject" (odoo-development-unit-test
+        # test-traps.md T-04).
+        cls.assignment_restart.invalidate_cache()
         cls.assignment_restart.with_user(cls.admin).action_reject_approval()
 
     @classmethod

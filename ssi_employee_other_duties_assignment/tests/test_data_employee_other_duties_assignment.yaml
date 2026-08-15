@@ -236,6 +236,18 @@ scenarios:
         target: "assignment"
         method: "action_confirm"
         as_user: "base.user_admin"
+        # WAJIB: the inline assert below forces auto_refresh on "assignment"
+        # right after action_confirm() returns. action_confirm() reads
+        # confirm_ok, which caches the whole mixin.policy compute group --
+        # including approve_ok -- at a point where the approval record does
+        # not exist yet, so approve_ok is cached False. Without this refresh,
+        # "Approve to open" below reads that stale value and fails
+        # nondeterministically with "Document is not allowed to approve"
+        # (odoo-development-unit-test test-traps.md T-04).
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
 
       - step: "Approve to open"
         action: "call"

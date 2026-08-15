@@ -12,7 +12,7 @@
 - **Record:** Status is **Draft**, **On Progress**, or **Done**.
 - **Config:** An active `policy.template` grants `cancel_ok` for that state to the
   actor's group.
-- **Access:** User has *Can Cancel* access right.
+- **Access:** User has _Can Cancel_ access right.
 
 ## Flow
 

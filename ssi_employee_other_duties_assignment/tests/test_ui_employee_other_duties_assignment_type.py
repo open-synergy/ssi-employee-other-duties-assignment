@@ -22,9 +22,9 @@ class TestUiEmployeeOtherDutiesAssignmentType(HttpSavepointCase):
         cls.eoda_type_edit = cls.env["employee_other_duties_assignment_type"].create(
             {"name": "Tour EODA Type Edit", "code": "TOUREODATYPEED"}
         )
-        cls.eoda_type_delete = cls.env[
-            "employee_other_duties_assignment_type"
-        ].create({"name": "Tour EODA Type Delete", "code": "TOUREODATYPEDEL"})
+        cls.eoda_type_delete = cls.env["employee_other_duties_assignment_type"].create(
+            {"name": "Tour EODA Type Delete", "code": "TOUREODATYPEDEL"}
+        )
         cls.eoda_type_deactivate = cls.env[
             "employee_other_duties_assignment_type"
         ].create({"name": "Tour EODA Type Deactivate", "code": "TOUREODATYPEDEA"})

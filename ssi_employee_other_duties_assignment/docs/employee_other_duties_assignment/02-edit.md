@@ -9,7 +9,7 @@
 ## Pre-Condition
 
 - **Record:** Status is **Draft**.
-- **Access:** User has *Can Write* access right.
+- **Access:** User has _Can Write_ access right.
 
 ## Flow
 
