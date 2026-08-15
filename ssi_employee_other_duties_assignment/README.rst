@@ -19,6 +19,30 @@ To install this module, you need to:
 5.  Search For *Employee Other Duties Assigmnent*
 6.  Install the module
 
+Work Instruction
+================
+
+Employee Other Duties Assignment Type
+--------------------------------------
+
+* `Create Employee Other Duties Assignment Type <docs/employee_other_duties_assignment_type/01-create.html>`_
+* `Edit Employee Other Duties Assignment Type <docs/employee_other_duties_assignment_type/02-edit.html>`_
+* `Delete Employee Other Duties Assignment Type <docs/employee_other_duties_assignment_type/03-delete.html>`_
+* `Deactivate Employee Other Duties Assignment Type <docs/employee_other_duties_assignment_type/04-deactivate.html>`_
+* `Activate Employee Other Duties Assignment Type <docs/employee_other_duties_assignment_type/05-activate.html>`_
+
+Employee Other Duties Assignment
+----------------------------------
+
+* `Create Employee Other Duties Assignment <docs/employee_other_duties_assignment/01-create.html>`_
+* `Edit Employee Other Duties Assignment <docs/employee_other_duties_assignment/02-edit.html>`_
+* `Delete Employee Other Duties Assignment <docs/employee_other_duties_assignment/03-delete.html>`_
+* `Confirm Employee Other Duties Assignment <docs/employee_other_duties_assignment/04-confirm.html>`_
+* `Approve Employee Other Duties Assignment <docs/employee_other_duties_assignment/05-approve.html>`_
+* `Reject Employee Other Duties Assignment <docs/employee_other_duties_assignment/06-reject.html>`_
+* `Cancel Employee Other Duties Assignment <docs/employee_other_duties_assignment/10-cancel.html>`_
+* `Restart Employee Other Duties Assignment <docs/employee_other_duties_assignment/12-restart.html>`_
+
 Bug Tracker
 ===========
 

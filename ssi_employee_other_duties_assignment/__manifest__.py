@@ -21,6 +21,7 @@
         "ssi_transaction_date_duration_mixin",
         "ssi_hr_employee",
         "ssi_m2o_configurator_mixin",
+        "web_tour",
     ],
     "data": [
         "ir_module_category/employee_other_duties_assignment.xml",
@@ -37,6 +38,7 @@
         "views/employee_other_duties_assignment_type.xml",
         "views/employee_other_duties_assignment.xml",
         "views/hr_employee.xml",
+        "views/assets.xml",
     ],
     "demo": [],
 }

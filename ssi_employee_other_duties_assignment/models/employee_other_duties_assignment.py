@@ -7,6 +7,17 @@ from odoo.addons.ssi_decorator import ssi_decorator
 
 
 class EmployeeOtherDutiesAssignment(models.Model):
+    """
+    Record an additional duty assignment given to an employee, on top of
+    the employee's regular job position.
+
+    Tracks the assignment through the standard transaction lifecycle
+    (draft, confirm, open, done) with multiple approval, terminate, and
+    cancel support. Once the assignment reaches the ``open`` state, its
+    ``job_description_ids`` are surfaced on the employee via
+    ``hr.employee.base._compute_extra_job_description_ids``.
+    """
+
     _name = "employee_other_duties_assignment"
     _inherit = [
         "mixin.transaction_terminate",

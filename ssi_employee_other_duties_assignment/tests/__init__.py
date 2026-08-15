@@ -4,3 +4,5 @@
 
 from . import test_employee_other_duties_assignment_type
 from . import test_employee_other_duties_assignment
+from . import test_ui_employee_other_duties_assignment_type
+from . import test_ui_employee_other_duties_assignment
