@@ -19,6 +19,14 @@ To install this module, you need to:
 5.  Search For *Employee Other Duties Assigmnent + Operating Unit*
 6.  Install the module
 
+Work Instruction
+================
+
+Employee Other Duties Assignment
+---------------------------------
+
+* `Create Employee Other Duties Assignment <docs/employee_other_duties_assignment/01-create.html>`_
+
 Bug Tracker
 ===========
 
