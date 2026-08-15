@@ -1,3 +1,6 @@
+options:
+  auto_refresh: true
+
 scenarios:
   - name: "Employee Other Duties Assignment - Full Workflow: draft to done"
     steps:
@@ -79,11 +82,6 @@ scenarios:
             type: "value"
             expected: "confirm"
 
-      - step: "Invalidate cache after confirm"
-        action: "call"
-        target: "assignment"
-        method: "invalidate_cache"
-
       - step: "Approve assignment"
         action: "call"
         target: "assignment"
@@ -93,11 +91,6 @@ scenarios:
           state:
             type: "value"
             expected: "open"
-
-      - step: "Invalidate cache after open"
-        action: "call"
-        target: "assignment"
-        method: "invalidate_cache"
 
       - step: "Assert name is set after open"
         action: "assert"
@@ -169,11 +162,6 @@ scenarios:
             type: "value"
             expected: "confirm"
 
-      - step: "Invalidate cache after confirm"
-        action: "call"
-        target: "assignment"
-        method: "invalidate_cache"
-
       - step: "Reject assignment"
         action: "call"
         target: "assignment"
@@ -183,11 +171,6 @@ scenarios:
           state:
             type: "value"
             expected: "reject"
-
-      - step: "Invalidate cache after reject"
-        action: "call"
-        target: "assignment"
-        method: "invalidate_cache"
 
       - step: "Restart to draft"
         action: "call"
@@ -253,27 +236,24 @@ scenarios:
         target: "assignment"
         method: "action_confirm"
         as_user: "base.user_admin"
-
-      - step: "Invalidate cache after confirm"
-        action: "call"
-        target: "assignment"
-        method: "invalidate_cache"
+        # WAJIB: the inline assert below forces auto_refresh on "assignment"
+        # right after action_confirm() returns. action_confirm() reads
+        # confirm_ok, which caches the whole mixin.policy compute group --
+        # including approve_ok -- at a point where the approval record does
+        # not exist yet, so approve_ok is cached False. Without this refresh,
+        # "Approve to open" below reads that stale value and fails
+        # nondeterministically with "Document is not allowed to approve"
+        # (odoo-development-unit-test test-traps.md T-04).
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
 
       - step: "Approve to open"
         action: "call"
         target: "assignment"
         method: "action_approve_approval"
         as_user: "base.user_admin"
-
-      - step: "Invalidate cache after open"
-        action: "call"
-        target: "assignment"
-        method: "invalidate_cache"
-
-      - step: "Invalidate cache on employee"
-        action: "call"
-        target: "employee"
-        method: "invalidate_cache"
 
       - step: "Assert extra job descriptions populated when open"
         action: "assert"

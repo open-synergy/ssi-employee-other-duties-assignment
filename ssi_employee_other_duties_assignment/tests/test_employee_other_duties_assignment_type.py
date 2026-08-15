@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestEmployeeOtherDutiesAssignmentType(YamlTransactionCase):
+    """Cover CRUD of the ``employee_other_duties_assignment_type`` model."""
+
     def test_employee_other_duties_assignment_type(self):
+        """Run the assignment type create/edit/delete scenario suite."""
         self.run_yaml_scenario("test_data_employee_other_duties_assignment_type.yaml")
