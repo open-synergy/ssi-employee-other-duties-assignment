@@ -113,15 +113,21 @@ odoo.define(
                         ".o_field_x2many_list_row_add a",
                 },
                 {
+                    // 14.0: in-modal triggers are searched INSIDE the modal
+                    // via $modal_displayed.find(trigger) (in_modal defaults
+                    // true), so the trigger must NOT be prefixed with
+                    // ".modal" -- ".modal .o_list_view" would look for a
+                    // nested modal inside this one and never match
+                    // (odoo-development-ui-test patterns.md §H).
                     content: "The job description search dialog is open",
-                    trigger: ".modal .o_list_view",
+                    trigger: ".o_list_view",
                     run: function () {
                         // Assertion only; do not trigger the default click action.
                     },
                 },
                 {
                     content: "Select the job description",
-                    trigger: ".modal .o_data_row:contains(Tour EODA Job Description)",
+                    trigger: ".o_data_row:contains(Tour EODA Job Description)",
                 },
 
                 // ── Flow 5 — Click Save.
@@ -469,15 +475,15 @@ odoo.define(
                     },
                 },
                 {
+                    // The wizard view sets widget="radio" on cancel_reason_id
+                    // (base_select_cancel_reason_view_form), so it renders as
+                    // a vertical radio group (.o_field_radio), NOT a
+                    // many2one autocomplete input. Click the label of the
+                    // matching radio item.
                     content: "Select the Cancel Reason",
-                    trigger: ".o_field_many2one[name='cancel_reason_id'] input",
-                    run: "text Tour EODA Cancel Reason",
-                },
-                {
-                    content: "Pick the reason",
                     trigger:
-                        ".ui-autocomplete .ui-menu-item a:contains(Tour EODA Cancel Reason)",
-                    in_modal: false,
+                        ".o_field_radio[name='cancel_reason_id'] " +
+                        "label:contains(Tour EODA Cancel Reason)",
                 },
 
                 // ── Flow 5 — Click Confirm.
